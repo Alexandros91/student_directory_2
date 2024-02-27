@@ -199,6 +199,7 @@ cohort = repo.find_with_albums(1)
 cohort.id # => 1
 cohort.name # => 'Ana Ivanovic'
 cohort.starting_date # => '10/04/2023'
+cohort.students.length # => 2
 
 
 # Add more examples for each method
@@ -217,13 +218,13 @@ This is so you get a fresh table contents every time you run the test suite.
 
 # file: spec/cohort_repository_spec.rb
 
+describe CohortRepository do
 def reset_cohorts_table
   seed_sql = File.read('seeds/cohorts.sql')
   connection = PG.connect({ host: '127.0.0.1', dbname: 'student_directory_2_test' })
   connection.exec(seed_sql)
 end
 
-describe cohortRepository do
   before(:each) do 
     reset_cohorts_table
   end
