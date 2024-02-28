@@ -1,13 +1,14 @@
 require_relative 'lib/database_connection'
+require_relative 'lib/cohort_repository'
+require_relative 'lib/cohort'
+require_relative 'lib/student'
 
-# We need to give the database name to the method `connect`.
-DatabaseConnection.connect('student_directory_2_test')
+DatabaseConnection.connect('student_directory_2')
 
-# Perform a SQL query on the database and get the result set.
-sql = 'SELECT id, name FROM students;'
-result = DatabaseConnection.exec_params(sql, [])
+cohort_repository = CohortRepository.new
 
-# Print out each record from the result set .
-result.each do |record|
-  p record
-end
+cohort = cohort_repository.find_with_students(1)
+student_names = cohort.students.map(&:name).join(', ')
+
+puts "#{cohort.id} - #{cohort.name} - #{cohort.starting_date} has the following students: #{student_names}"
+

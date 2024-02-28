@@ -46,6 +46,3 @@ class CohortRepository
     return student
   end
 end
-
-c = CohortRepository.new
-puts c.find_with_students(1)
